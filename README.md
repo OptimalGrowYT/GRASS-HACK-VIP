@@ -69,10 +69,10 @@ pkg update && upgrade
 pkg install tur-repo
 pkg install python-is-python3.10
 pkg install -y rust binutils
-CARGO_BUILD_TARGET="$(rustc -Vv | grep "host" | awk '{print $2}')" pip install maturin
+
 ```
 
-## Clone This Script and do the rest.
+## Termux.
 
 pkg update && pkg upgrade -y
 
@@ -86,8 +86,8 @@ cd GRASS-HACK-VIP
 
 nano query_id.txt
 
-pip install requests
+pip install -r requirements.txt
 
-python main.py
+python3 main.py
 
 
