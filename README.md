@@ -1,4 +1,4 @@
-## Paste your proxies inside local_proxies.txt and the User ID inside user_id.txt
+## Paste your proxies inside Proxy.txt and the User ID inside USER_ID.txt
 
 
 # How to Get GRASS User ID
@@ -33,13 +33,9 @@ You can run the script using the following commands:
 
 ### Using Free Proxies (Automatically Assigned)
 ```bash
-python grass_freeproxy.py
+python main.py
 ```
-This script will automatically assign free proxies using the **Proxyscrape API**.
-### Using Personal Proxies
-```bash
-python grass_proxy.py
-```
+
 ## FOR ANDROID
 
 # How to Get GRASS User ID Using Android Device
@@ -77,5 +73,21 @@ CARGO_BUILD_TARGET="$(rustc -Vv | grep "host" | awk '{print $2}')" pip install m
 ```
 
 ## Clone This Script and do the rest.
+
+pkg update && pkg upgrade -y
+
+pkg install python rust git -y
+
+pkg install nano
+
+git clone https://github.com/OptimalGrowYT/GRASS-HACK-VIP.git
+
+cd GRASS-HACK-VIP
+
+nano query_id.txt
+
+pip install requests
+
+python main.py
 
 
