@@ -9,75 +9,63 @@ import shutil
 from loguru import logger
 from websockets_proxy import Proxy, proxy_connect
 from fake_useragent import UserAgent
-import websockets
-from colorama import Fore, Style
 import base64
+from colorama import Fore, Style  # Import colorama for colored output
 
-# Banner code
+# Base64 encoded banner string
+encoded_banner = """
+CgorPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kwp8IOKWiOKWiOKWiOKWiOKWiOKWiOKVlyDilojilojilojilojilojilojilZcg4paI4paI4paI4paI4paI4paI4paI4paI4pWX4paI4paI4pWXICAgIOKWiOKWiOKWiOKVlyAgIOKWiOKWiOKWiOKVlyDilojilojilojilojilojilZcg4paI4paI4pWXICAgICB8CnzilojilojilZTilZDilZDilZDilojilojilZfilojilojilZTilZDilZDilojilojilZfilZrilZDilZDilojilojilZTilZDilZDilZ3ilojilojilZEgICAg4paI4paI4paI4paI4pWXIOKWiOKWiOKWiOKWiOKVkeKWiOKWiOKVlOKVkOKVkOKWiOKWiOKVl+KWiOKWiOKVkSAgICAgfAp84paI4paI4pWRICAg4paI4paI4pWR4paI4paI4paI4paI4paI4paI4pWU4pWdICAg4paI4paI4pWRICAg4paI4paI4pWRICAgIOKWiOKWiOKVlOKWiOKWiOKWiOKWiOKVlOKWiOKWiOKVkeKWiOKWiOKWiOKWiOKWiOKWiOKWiOKVkeKWiOKWiOKVkSAgICAgfAp84paI4paI4pWRICAg4paI4paI4pWR4paI4paI4pWU4pWQ4pWQ4pWQ4pWdICAgIOKWiOKWiOKVkSAgIOKWiOKWiOKVkSAgICDilojilojilZHilZrilojilojilZTilZ3ilojilojilZHilojilojilZTilZDilZDilojilojilZHilojilojilZEgICAgIHwKfOKVmuKWiOKWiOKWiOKWiOKWiOKWiOKVlOKVneKWiOKWiOKVkSAgICAgICAg4paI4paI4pWRICAg4paI4paI4pWRICAgIOKWiOKWiOKVkSDilZrilZDilZ0g4paI4paI4pWR4paI4paI4pWRICDilojilojilZHilojilojilojilojilojilojilojilZd8Cnwg4pWa4pWQ4pWQ4pWQ4pWQ4pWQ4pWdIOKVmuKVkOKVnSAgICAgICAg4pWa4pWQ4pWdICAg4pWa4pWQ4pWdICAgIOKVmuKVkOKVnSAgICAg4pWa4pWQ4pWd4pWa4pWQ4pWdICDilZrilZDilZ3ilZrilZDilZDilZDilZDilZDilZDilZ18Cnwg4paI4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKWiOKWiOKWiOKWiOKVlyAg4paI4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKVlyAgICDilojilojilZcgICAg4paI4paI4pWXICAg4paI4paI4pWX4paI4paI4paI4paI4paI4paI4paI4paI4pWXICB8CnzilojilojilZTilZDilZDilZDilZDilZ0g4paI4paI4pWU4pWQ4pWQ4paI4paI4pWX4paI4paI4pWU4pWQ4pWQ4pWQ4paI4paI4pWX4paI4paI4pWRICAgIOKWiOKWiOKVkSAgICDilZrilojilojilZcg4paI4paI4pWU4pWd4pWa4pWQ4pWQ4paI4paI4pWU4pWQ4pWQ4pWdICB8CnzilojilojilZEgIOKWiOKWiOKWiOKVl+KWiOKWiOKWiOKWiOKWiOKWiOKVlOKVneKWiOKWiOKVkSAgIOKWiOKWiOKVkeKWiOKWiOKVkSDilojilZcg4paI4paI4pWRICAgICDilZrilojilojilojilojilZTilZ0gICAg4paI4paI4pWRICAgICB8CnzilojilojilZEgICDilojilojilZHilojilojilZTilZDilZDilojilojilZfilojilojilZEgICDilojilojilZHilojilojilZHilojilojilojilZfilojilojilZEgICAgICDilZrilojilojilZTilZ0gICAgIOKWiOKWiOKVkSAgICAgfAp84pWa4paI4paI4paI4paI4paI4paI4pWU4pWd4paI4paI4pWRICDilojilojilZHilZrilojilojilojilojilojilojilZTilZ3ilZrilojilojilojilZTilojilojilojilZTilZ0gICAgICAg4paI4paI4pWRICAgICAg4paI4paI4pWRICAgICB8Cnwg4pWa4pWQ4pWQ4pWQ4pWQ4pWQ4pWdIOKVmuKVkOKVnSAg4pWa4pWQ4pWdIOKVmuKVkOKVkOKVkOKVkOKVkOKVnSAg4pWa4pWQ4pWQ4pWd4pWa4pWQ4pWQ4pWdICAgICAgICDilZrilZDilZ0gICAgICDilZrilZDilZ0gICAgIHwKKz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSsKCg==
+"""  # The base64-encoded string of your banner
+
 def _banner():
-    # Base64 encoded banner
-    encoded_banner = r"""
-    Pj49PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PDwKfHwg4paI4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKWiOKWiOKWiOKWiOKVlyDilojilojilojilojilojilojilojilojilZfilojilojilZfilojilojilojilZcgICDilojilojilojilZcg4paI4paI4paI4paI4paI4pWXIOKWiOKWiOKVlyAgICAgICB8fAp8fOKWiOKWiOKVlOKVkOKVkOKVkOKWiOKWiOKVl+KWiOKWiOKVlOKVkOKVkOKWiOKWiOKVl+KVmuKVkOKVkOKWiOKWiOKVlOKVkOKVkOKVneKWiOKWiOKVkeKWiOKWiOKWiOKWiOKVlyDilojilojilojilojilZHilojilojilZTilZDilZDilojilojilZfilojilojilZEgICAgICAgfHwKfHzilojilojilZEgICDilojilojilZHilojilojilojilojilojilojilZTilZ0gICDilojilojilZEgICDilojilojilZHilojilojilZTilojilojilojilojilZTilojilojilZHilojilojilojilojilojilojilojilZHilojilojilZEgICAgICAgfHwKfHzilojilojilZEgICDilojilojilZHilojilojilZTilZDilZDilZDilZ0gICAg4paI4paI4pWRICAg4paI4paI4pWR4paI4paI4pWR4pWa4paI4paI4pWU4pWd4paI4paI4pWR4paI4paI4pWU4pWQ4pWQ4paI4paI4pWR4paI4paI4pWRICAgICAgIHx8Cnx84pWa4paI4paI4paI4paI4paI4paI4pWU4pWd4paI4paI4pWRICAgICAgICDilojilojilZEgICDilojilojilZHilojilojilZEg4pWa4pWQ4pWdIOKWiOKWiOKVkeKWiOKWiOKVkSAg4paI4paI4pWR4paI4paI4paI4paI4paI4paI4paI4pWXICB8fAp8fCDilZrilZDilZDilZDilZDilZDilZ0g4pWa4pWQ4pWdICAgICAgICDilZrilZDilZ0gICDilZrilZDilZ3ilZrilZDilZ0gICAgIOKVmuKVkOKVneKVmuKVkOKVnSAg4pWa4pWQ4pWd4pWa4pWQ4pWQ4pWQ4pWQ4pWQ4pWQ4pWdICB8fAp8fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8fAp8fCDilojilojilojilojilojilojilZcg4paI4paI4paI4paI4paI4paI4pWXICDilojilojilojilojilojilojilZcg4paI4paI4pWXICAgIOKWiOKWiOKVlyAgICDilojilojilZcgICDilojilojilZfilojilojilojilojilojilojilojilojilZd8fAp8fOKWiOKWiOKVlOKVkOKVkOKVkOKVkOKVnSDilojilojilZTilZDilZDilojilojilZfilojilojilZTilZDilZDilZDilojilojilZfilojilojilZEgICAg4paI4paI4pWRICAgIOKVmuKWiOKWiOKVlyDilojilojilZTilZ3ilZrilZDilZDilojilojilZTilZDilZDilZ18fAp8fOKWiOKWiOKVkSAg4paI4paI4paI4pWX4paI4paI4paI4paI4paI4paI4pWU4pWd4paI4paI4pWRICAg4paI4paI4pWR4paI4paI4pWRIOKWiOKVlyDilojilojilZEgICAgIOKVmuKWiOKWiOKWiOKWiOKVlOKVnSAgICDilojilojilZEgICB8fAp8fOKWiOKWiOKVkSAgIOKWiOKWiOKVkeKWiOKWiOKVlOKVkOKVkOKWiOKWiOKVl+KWiOKWiOKVkSAgIOKWiOKWiOKVkeKWiOKWiOKVkeKWiOKWiOKWiOKVl+KWiOKWiOKVkSAgICAgIOKVmuKWiOKWiOKVlOKVnSAgICAg4paI4paI4pWRICAgfHwKfHzilZrilojilojilojilojilojilojilZTilZ3ilojilojilZEgIOKWiOKWiOKVkeKVmuKWiOKWiOKWiOKWiOKWiOKWiOKVlOKVneKVmuKWiOKWiOKWiOKVlOKWiOKWiOKWiOKVlOKVnSAgICAgICDilojilojilZEgICAgICDilojilojilZEgICB8fAp8fCDilZrilZDilZDilZDilZDilZDilZ0g4pWa4pWQ4pWdICDilZrilZDilZ0g4pWa4pWQ4pWQ4pWQ4pWQ4pWQ4pWdICDilZrilZDilZDilZ3ilZrilZDilZDilZ0gICAgICAgIOKVmuKVkOKVnSAgICAgIOKVmuKVkOKVnSAgIHx8Cj4+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PTw8Cg==
-    """ 
-    
     # Decode the base64 encoded banner
-    decoded_banner = base64.b64decode(encoded_banner).decode('utf-8')
-
-    # Print the decoded banner
-    print(Fore.GREEN + Style.BRIGHT + decoded_banner + Style.RESET_ALL)
+    try:
+        decoded_banner = base64.b64decode(encoded_banner).decode('utf-8', 'ignore')
+        print(Fore.WHITE + Style.BRIGHT + decoded_banner + Style.RESET_ALL)
+    except Exception as e:
+        logger.error(f"Error decoding banner: {e}")
     
-    # Base64 encoded URLs and texts
-    encoded_links = {
-        "CONTACT_US": "aHR0cHM6Ly90Lm1lL2RvY3Rvcl9hbWw=",
-        "DOWNLOAD_HACKS": "aHR0cHM6Ly90Lm1lL29wdGltYWxncm93WVQ=",
-        "LEARN_HACKING": "aHR0cHM6Ly93d3cueW91dWJldC5jb20vQG9wdGltYWxncm93WVQvdmlkZW9z",
-        "PARTNER_CHANNEL": "aHR0cHM6Ly90Lm1lL0FpcmRyb3BoYWNrMTIzOQ==",
-        "PASTE_USER_ID": "UEFTVEUgeW91ciAoVVNFUiggX1VJREkpIElOVE8gVVNFUl9JRC5UWEQgRklMRSBhbmQgUFJFU1MgU1RBUg==",
-        "GRASS_AIRDROP_HACK": "U+X4IGVuYoX5z0aRkZXoV8KGGlT-IEA==",
-    }
-
-    # Decode and print each URL link
-    print(Fore.RED + f" CONTACT US: ⨭ {Fore.GREEN}{base64.b64decode(encoded_links['CONTACT_US']).decode('utf-8')}")
-    print(Fore.WHITE + f" DOWNLOAD LATEST HACKS HERE ➤ {Fore.GREEN}{base64.b64decode(encoded_links['DOWNLOAD_HACKS']).decode('utf-8')}")
-    print(Fore.RED  + f" LEARN HACKING HERE ➤ {Fore.GREEN}{base64.b64decode(encoded_links['LEARN_HACKING']).decode('utf-8')}")
-    print(Fore.YELLOW + f" PARTNER CHANNEL  {Fore.GREEN}{base64.b64decode(encoded_links['PARTNER_CHANNEL']).decode('utf-8')}")
-    print(Fore.YELLOW + f" PASTE YOUR (USER ID) INTO USER_ID.TXT FILE AND PRESS START ")
-    print(Fore.GREEN + f" ▀▄▀▄▀▄ 🌿 𝗚𝗿𝗮𝘀𝘀 𝗔𝗶𝗿𝗱𝗿𝗼𝗽 𝗛𝗮𝗰𝗸 🌿 ▄▀▄▀▄▀ ")
+    # Additional details to display
+    print(Fore.YELLOW + f" CREATED BY : DR ABDUL MATIN KARIMI: ⨭ {Fore.GREEN}https://t.me/doctor_amk")
+    print(Fore.WHITE + f" DOWNLOAD LATEST HACKS HERE ➤ {Fore.GREEN}https://t.me/optimalgrowYT")
+    print(Fore.RED  + f" LEARN HACKING HERE ➤ {Fore.GREEN}https://www.youtube.com/@optimalgrowYT/videos")
+    print(Fore.RED  + f" DOWNLOAD MORE HACKS ➤ {Fore.GREEN}https://github.com/OptimalGrowYT")
+    print(Fore.YELLOW + f" PASTE YOUR [USER 🆔] INTO USER_ID.TXT FILE AND PRESS START ")
+    print(Fore.GREEN + f"                   [𝍖𝍖𝍖 𝙶𝚁𝙰𝚂𝚂 𝙷𝙰𝙲𝙺 𝚅𝙸𝙿 𝍖𝍖𝍖]                   ")
     log_line()
 
 def log_line():
-    print(Fore.CYAN + "-" * 50 + Style.RESET_ALL)
+    print(Fore.GREEN + "-☠-" * 20 + Style.RESET_ALL)
 
-# Main script starts here
-user_agent = UserAgent()
+user_agent = UserAgent(os='windows', platforms='pc', browsers='chrome')
 random_user_agent = user_agent.random
 
 async def connect_to_wss(socks5_proxy, user_id):
     device_id = str(uuid.uuid3(uuid.NAMESPACE_DNS, socks5_proxy))
-    logger.info(device_id)
+    logger.info(f"Connecting with Device ID: {device_id}")
     while True:
         try:
             await asyncio.sleep(random.randint(1, 10) / 10)
             custom_headers = {
                 "User-Agent": random_user_agent,
-                "Origin": "chrome-extension://ilehaonighjijnmpnagapkhpcdbhclfg"
+                "Origin": "chrome-extension://lkbnfiajjmbhnfledhphioinpickokdi"
             }
             ssl_context = ssl.create_default_context()
             ssl_context.check_hostname = False
             ssl_context.verify_mode = ssl.CERT_NONE
-            uri = "wss://proxy.wynd.network:4650"
+            urilist = ["wss://proxy.wynd.network:4444/", "wss://proxy.wynd.network:4650/", 
+                       "wss://proxy2.wynd.network:4444/", "wss://proxy2.wynd.network:4650/", 
+                       "wss://proxy3.wynd.network:4444/", "wss://proxy3.wynd.network:4650/"]
+            uri = random.choice(urilist)
             server_hostname = "proxy.wynd.network"
             proxy = Proxy.from_url(socks5_proxy)
-
-            # Using websockets.connect
-            async with websockets.connect(uri, ssl=ssl_context, extra_headers=custom_headers) as websocket:
-                logger.info("Connected to websocket")
-
+            async with proxy_connect(uri, proxy=proxy, ssl=ssl_context, server_hostname=server_hostname,
+                                     extra_headers=custom_headers) as websocket:
                 async def send_ping():
                     while True:
                         send_message = json.dumps(
                             {"id": str(uuid.uuid4()), "version": "1.0.0", "action": "PING", "data": {}})
-                        logger.debug(send_message)
+                        logger.debug(f"Sending PING: {send_message}")
                         await websocket.send(send_message)
                         await asyncio.sleep(5)
 
@@ -87,7 +75,7 @@ async def connect_to_wss(socks5_proxy, user_id):
                 while True:
                     response = await websocket.recv()
                     message = json.loads(response)
-                    logger.info(message)
+                    logger.info(f"Received message: {message}")
                     if message.get("action") == "AUTH":
                         auth_response = {
                             "id": message["id"],
@@ -98,44 +86,44 @@ async def connect_to_wss(socks5_proxy, user_id):
                                 "user_agent": custom_headers['User-Agent'],
                                 "timestamp": int(time.time()),
                                 "device_type": "extension",
-                                "version": "4.0.3",
-                                "extension_id": "ilehaonighjijnmpnagapkhpcdbhclfg"
+                                "version": "4.26.2",
+                                "extension_id": "lkbnfiajjmbhnfledhphioinpickokdi"
                             }
                         }
-                        logger.debug(auth_response)
+                        logger.debug(f"Sending AUTH response: {auth_response}")
                         await websocket.send(json.dumps(auth_response))
 
                     elif message.get("action") == "PONG":
                         pong_response = {"id": message["id"], "origin_action": "PONG"}
-                        logger.debug(pong_response)
+                        logger.debug(f"Sending PONG response: {pong_response}")
                         await websocket.send(json.dumps(pong_response))
         except Exception as e:
-            logger.error(e)
-            logger.error(socks5_proxy)
+            logger.error(f"Error with proxy {socks5_proxy}: {e}")
 
 async def main():
-    # Display the banner on start
-    _banner()
+    _banner()  # Display banner before proceeding
 
-    # Read user_id from USER_ID.txt file
+    # Read user_id from the USER_ID.txt file
     try:
         with open('USER_ID.txt', 'r') as file:
-            _user_id = file.read().strip()  # Read and remove any extra whitespace
+            _user_id = file.read().strip()  # Remove any leading/trailing whitespace
         if not _user_id:
-            logger.error("User ID is empty in USER_ID.txt!")
+            logger.error("No user ID found in USER_ID.txt!")
             return
     except FileNotFoundError:
         logger.error("USER_ID.txt file not found!")
         return
-    
+
     logger.info(f"Using user_id: {_user_id}")
     
-    # Read proxy list from proxy.txt
-    with open('proxy.txt', 'r') as file:
+    # Read proxies from proxy_list.txt
+    with open('proxy_list.txt', 'r') as file:
         local_proxies = file.read().splitlines()
-    
-    tasks = [asyncio.ensure_future(connect_to_wss(i, _user_id)) for i in local_proxies]
+
+    # Create tasks for each proxy to connect to WSS
+    tasks = [asyncio.ensure_future(connect_to_wss(proxy, _user_id)) for proxy in local_proxies]
     await asyncio.gather(*tasks)
 
 if __name__ == '__main__':
+    # Start the asyncio loop
     asyncio.run(main())
