@@ -116,8 +116,8 @@ async def main():
 
     logger.info(f"Using user_id: {_user_id}")
     
-    # Read proxies from proxy_list.txt
-    with open('proxy_list.txt', 'r') as file:
+    # Read proxies from proxy.txt
+    with open('proxy.txt', 'r') as file:
         local_proxies = file.read().splitlines()
 
     # Create tasks for each proxy to connect to WSS
