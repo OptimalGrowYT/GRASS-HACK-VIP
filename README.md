@@ -1,5 +1,7 @@
 ## Paste your proxies inside Proxy.txt and the User ID inside USER_ID.txt
 
+<img src="https://github.com/OptimalGrowYT/GRASS-HACK-MASTER/blob/main/Grass%20Thumnail.jpg" alt="توضیح تصویر" width="1280" height="520">
+
 
 # How to Get GRASS User ID
 
