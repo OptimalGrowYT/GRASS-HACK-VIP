@@ -38,6 +38,19 @@ http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10008
 http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10009
 ```
 
+```bash
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-p00cllfr-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-ed0694iq-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-v4b3mub6-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-9jlsv5ui-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-n2td9oky-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-esd5qgkk-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-klp62vui-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-8sl9n9s7-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-4cqob60j-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+http://abdulmatinkarimi4spmlxw74rfx-country-us-state-Texas-city-Cedarhill-session-9fmso53o-package-residential:ic5hmhgxe6wl9ay3@resi.proxies.fo:1337
+```
+
 ## Running the Script
 
 You can run the script using the following commands:
