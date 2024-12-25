@@ -26,15 +26,16 @@ It is recommended to use **Python 3.10**.
 Run the following command to install the necessary packages:
 
 ```bash
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10001
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10002
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10003
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10004
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10005
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10006
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10007
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10008
-http://8f7ec40622fc0aec:RNW78Fm5@res.proxy-sale.com:10009
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10000
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10001
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10002
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10003
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10004
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10005
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10006
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10007
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10008
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10009
 ```
 
 ## Running the Script
