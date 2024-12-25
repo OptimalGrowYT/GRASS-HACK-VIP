@@ -26,14 +26,16 @@ It is recommended to use **Python 3.10**.
 Run the following command to install the necessary packages:
 
 ```bash
-http://154.205.152.96:4145  
-http://38.54.116.9:8443  
-http://47.250.159.65:9080  
-http://78.80.228.150:80  
-http://8.211.49.86:80  
-http://72.10.160.170:15905  
-http://47.76.144.139:80  
-http://47.74.46.81:37777  
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10000
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10001
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10002
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10003
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10004
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10005
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10006
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10007
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10008
+http://20c839c768dcd76e:RNW78Fm5@res.proxy-sale.com:10009  
 
 ```
 
